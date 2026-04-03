@@ -9,9 +9,8 @@ export function LinktreePage() {
   const links = [
     { label: "Cardápio Completo", action: () => navigate("/cardapio") },
     { label: "Solicitar Orçamento", action: () => window.open("https://wa.me/5500000000000", "_blank") },
-    { label: "Nossos Eventos", action: () => window.open("https://instagram.com/", "_blank") },
+    { label: "Nossos Eventos", action: () => window.open("https://instagram.com/cl_buffet12", "_blank") },
     { label: "Onde Estamos", action: () => window.open("https://maps.google.com", "_blank") },
-    { label: "Falar Conosco", action: () => window.open("https://wa.me/5500000000000", "_blank") },
   ];
 
   return (
@@ -136,12 +135,14 @@ export function LinktreePage() {
         </div>
 
         {/* Social links */}
+
         <div style={{
           display: "flex", gap: 28,
           animation: "fadeUp 0.6s ease-out 1s both",
         }}>
-          {["Instagram", "WhatsApp"].map((s, i) => (
-            <button key={i} onClick={() => {}} style={{
+          <button
+            onClick={() => window.open("https://instagram.com/cl_buffet12", "_blank")}
+            style={{
               background: "none", border: "none", cursor: "pointer",
               fontFamily: "'Cormorant Garamond', serif",
               color: colors.goldLight, fontSize: 13,
@@ -149,12 +150,26 @@ export function LinktreePage() {
               opacity: 0.7, transition: "opacity 0.2s",
               textDecoration: "none",
             }}
-              onMouseEnter={e => e.currentTarget.style.opacity = "1"}
-              onMouseLeave={e => e.currentTarget.style.opacity = "0.7"}
-            >
-              {s}
-            </button>
-          ))}
+            onMouseEnter={e => e.currentTarget.style.opacity = "1"}
+            onMouseLeave={e => e.currentTarget.style.opacity = "0.7"}
+          >
+            Instagram
+          </button>
+          <button
+            onClick={() => window.open("https://wa.me/5500000000000", "_blank")}
+            style={{
+              background: "none", border: "none", cursor: "pointer",
+              fontFamily: "'Cormorant Garamond', serif",
+              color: colors.goldLight, fontSize: 13,
+              letterSpacing: "0.14em", fontWeight: 400,
+              opacity: 0.7, transition: "opacity 0.2s",
+              textDecoration: "none",
+            }}
+            onMouseEnter={e => e.currentTarget.style.opacity = "1"}
+            onMouseLeave={e => e.currentTarget.style.opacity = "0.7"}
+          >
+            WhatsApp
+          </button>
         </div>
 
           

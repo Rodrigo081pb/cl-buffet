@@ -34,12 +34,6 @@ export function Modal({ item, onClose }: ModalProps) {
           animation: "modalIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
         }}
       >
-        {/* Handle */}
-        <div style={{
-          width: 40, height: 3, borderRadius: 2,
-          background: "rgba(201,169,110,0.4)",
-          margin: "0 auto 28px",
-        }} />
 
         <Ornament style={{ marginBottom: 20 }} />
 

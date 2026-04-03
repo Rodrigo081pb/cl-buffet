@@ -14,6 +14,9 @@ export function MenuItem({ item, onClick }: MenuItemProps) {
         padding: "20px 0", cursor: "pointer",
         borderBottom: `1px solid rgba(201,169,110,0.18)`,
         transition: "all 0.2s ease",
+        display: "flex",
+        alignItems: "center",
+        gap: 18,
       }}
       onMouseEnter={e => {
         e.currentTarget.style.paddingLeft = "8px";
@@ -24,20 +27,46 @@ export function MenuItem({ item, onClick }: MenuItemProps) {
         e.currentTarget.style.background = "transparent";
       }}
     >
-      <h3 style={{
-        fontFamily: "'Playfair Display', serif",
-        color: colors.cream, fontSize: 16, fontWeight: 400,
-        letterSpacing: "0.04em", marginBottom: 6,
+      {/* Imagem elegante do prato */}
+      <div style={{
+        width: 54, height: 54,
+        borderRadius: "50%",
+        background: `linear-gradient(135deg, ${colors.goldMuted} 0%, ${colors.bordeauxDark} 100%)`,
+        border: `1.5px solid ${colors.goldMuted}`,
+        boxShadow: `0 2px 12px rgba(0,0,0,0.10)`,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        overflow: "hidden",
+        flexShrink: 0,
       }}>
-        {item.nome}
-      </h3>
-      <p style={{
-        fontFamily: "'Raleway', sans-serif",
-        color: "rgba(245,236,215,0.65)", fontSize: 13,
-        fontWeight: 300, lineHeight: 1.6, letterSpacing: "0.02em",
-      }}>
-        {item.desc}
-      </p>
+        {item.img ? (
+          <img
+            src={item.img}
+            alt={item.nome}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            loading="lazy"
+          />
+        ) : (
+          <span style={{ color: colors.goldMuted, fontSize: 22, opacity: 0.5 }}>🍽️</span>
+        )}
+      </div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <h3 style={{
+          fontFamily: "'Playfair Display', serif",
+          color: colors.cream, fontSize: 16, fontWeight: 400,
+          letterSpacing: "0.04em", marginBottom: 6,
+          textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden"
+        }}>
+          {item.nome}
+        </h3>
+        <p style={{
+          fontFamily: "'Raleway', sans-serif",
+          color: "rgba(245,236,215,0.65)", fontSize: 13,
+          fontWeight: 300, lineHeight: 1.6, letterSpacing: "0.02em",
+          textOverflow: "ellipsis", overflow: "hidden"
+        }}>
+          {item.desc}
+        </p>
+      </div>
     </div>
   );
 }
