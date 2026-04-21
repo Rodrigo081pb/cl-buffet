@@ -7,6 +7,8 @@ import { Ornament } from "../../components/Ornament";
 import { RippleButton } from "../../components/RippleButton";
 import { MenuItem } from "../../components/MenuItem";
 import { Modal } from "../../components/Modal";
+import { FloatingCartButton } from "../../components/FloatingCartButton";
+import { whats } from "../../constants/info";
 
 export function CardapioPage() {
   const navigate = useNavigate();
@@ -110,7 +112,7 @@ export function CardapioPage() {
       }}>
         <div style={{ maxWidth: 520, margin: "0 auto" }}>
           <RippleButton
-            onClick={() => window.open("https://wa.me/5500000000000", "_blank")}
+            onClick={() => window.open(`https://wa.me/${whats.numero.replace(/\D/g, '')}`, "_blank")}
             style={{
               width: "100%", padding: "16px",
               background: `linear-gradient(135deg, ${colors.bordeaux} 0%, ${colors.bordeauxDeep} 100%)`,
@@ -127,6 +129,9 @@ export function CardapioPage() {
           </RippleButton>
         </div>
       </div>
+
+      {/* Botão flutuante do carrinho */}
+      <FloatingCartButton />
 
       {selectedItem && <Modal item={selectedItem} onClose={() => setSelectedItem(null)} />}
     </div>

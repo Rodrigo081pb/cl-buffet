@@ -2,6 +2,8 @@ import type { MenuItem } from "../data/menuData";
 import { colors } from "../constants/colors";
 import { Ornament } from "./Ornament";
 import { RippleButton } from "./RippleButton";
+import { Cart } from "../models";
+import { whats } from "../constants/info";
 
 interface ModalProps {
   item: MenuItem | null;
@@ -10,6 +12,12 @@ interface ModalProps {
 
 export function Modal({ item, onClose }: ModalProps) {
   if (!item) return null;
+
+  const handleAddToCart = () => {
+    const cart = Cart.getInstance();
+    cart.addItem(item);
+    onClose(); // Fecha o modal após adicionar
+  };
   
   return (
     <div
@@ -75,7 +83,7 @@ export function Modal({ item, onClose }: ModalProps) {
         </div>
 
         <RippleButton
-          onClick={() => window.open("https://wa.me/5500000000000", "_blank")}
+          onClick={handleAddToCart}
           style={{
             width: "100%", padding: "15px",
             background: `linear-gradient(135deg, ${colors.gold} 0%, #A07840 100%)`,
@@ -84,9 +92,26 @@ export function Modal({ item, onClose }: ModalProps) {
             color: colors.bordeauxDeep,
             fontSize: 16, fontWeight: 500,
             letterSpacing: "0.12em",
+            marginBottom: 8,
           }}
         >
-          Solicitar este prato
+          Adicionar ao Carrinho
+        </RippleButton>
+
+        <RippleButton
+          onClick={() => window.open(`https://wa.me/${whats.numero.replace(/\D/g, '')}`, "_blank")}
+          style={{
+            width: "100%", padding: "15px",
+            background: "none",
+            border: `1px solid ${colors.goldMuted}`,
+            borderRadius: 3,
+            fontFamily: "'Cormorant Garamond', serif",
+            color: colors.gold,
+            fontSize: 16, fontWeight: 500,
+            letterSpacing: "0.12em",
+          }}
+        >
+          Consultar pelo WhatsApp
         </RippleButton>
 
         <button

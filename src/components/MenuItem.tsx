@@ -1,5 +1,6 @@
 import type { MenuItem as MenuItemType } from "../data/menuData";
 import { colors } from "../constants/colors";
+import { Cart } from "../models";
 
 interface MenuItemProps {
   item: MenuItemType;
@@ -7,6 +8,12 @@ interface MenuItemProps {
 }
 
 export function MenuItem({ item, onClick }: MenuItemProps) {
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Evita abrir o modal
+    const cart = Cart.getInstance();
+    cart.addItem(item);
+  };
+
   return (
     <div
       onClick={() => onClick(item)}
@@ -38,7 +45,7 @@ export function MenuItem({ item, onClick }: MenuItemProps) {
         overflow: "hidden",
         flexShrink: 0,
       }}>
-        {item.img ? (
+        {item.img && item.img !== "/imgs/default-food.svg" ? (
           <img
             src={item.img}
             alt={item.nome}
@@ -49,6 +56,7 @@ export function MenuItem({ item, onClick }: MenuItemProps) {
           <span style={{ color: colors.goldMuted, fontSize: 22, opacity: 0.5 }}>🍽️</span>
         )}
       </div>
+      
       <div style={{ flex: 1, minWidth: 0 }}>
         <h3 style={{
           fontFamily: "'Playfair Display', serif",
@@ -62,11 +70,44 @@ export function MenuItem({ item, onClick }: MenuItemProps) {
           fontFamily: "'Raleway', sans-serif",
           color: "rgba(245,236,215,0.65)", fontSize: 13,
           fontWeight: 300, lineHeight: 1.6, letterSpacing: "0.02em",
-          textOverflow: "ellipsis", overflow: "hidden"
+          textOverflow: "ellipsis", overflow: "hidden",
+          display: "-webkit-box",
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: "vertical",
         }}>
           {item.desc}
         </p>
       </div>
+
+      {/* Botão Adicionar ao Carrinho */}
+      <button
+        onClick={handleAddToCart}
+        style={{
+          background: `linear-gradient(135deg, ${colors.gold} 0%, #A07840 100%)`,
+          border: "none",
+          borderRadius: 4,
+          padding: "8px 16px",
+          color: colors.bordeauxDeep,
+          fontFamily: "'Raleway', sans-serif",
+          fontSize: 12,
+          fontWeight: 600,
+          letterSpacing: "0.05em",
+          cursor: "pointer",
+          transition: "all 0.2s ease",
+          flexShrink: 0,
+          boxShadow: "0 2px 8px rgba(201,169,110,0.3)",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "scale(1.05)";
+          e.currentTarget.style.boxShadow = "0 4px 12px rgba(201,169,110,0.5)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "scale(1)";
+          e.currentTarget.style.boxShadow = "0 2px 8px rgba(201,169,110,0.3)";
+        }}
+      >
+        Adicionar carrinho
+      </button>
     </div>
   );
 }

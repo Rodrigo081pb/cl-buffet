@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { LinktreePage } from './pages/linktree/LinktreePage';
 import { CardapioPage } from './pages/cardapio/CardapioPage';
+import { CarrinhoPage } from './pages/carrinho/CarrinhoPage';
 import './App.css';
 
 const globalStyles = `
@@ -55,6 +56,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LinktreePage />} />
           <Route path="/cardapio" element={<CardapioPage />} />
+          <Route path="/carrinho" element={<CarrinhoPage />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -2,15 +2,16 @@ import { useNavigate } from "react-router-dom";
 import { colors } from "../../constants/colors";
 import { Ornament } from "../../components/Ornament";
 import { RippleButton } from "../../components/RippleButton";
+import { insta, whats } from "../../constants/info";
 
 export function LinktreePage() {
   const navigate = useNavigate();
 
   const links = [
     { label: "Cardápio Completo", action: () => navigate("/cardapio") },
-    { label: "Solicitar Orçamento", action: () => window.open("https://wa.me/5500000000000", "_blank") },
-    { label: "Nossos Eventos", action: () => window.open("https://instagram.com/cl_buffet12", "_blank") },
-    { label: "Onde Estamos", action: () => window.open("https://maps.google.com", "_blank") },
+    { label: "Solicitar Orçamento", action: () => window.open(`https://wa.me/${whats.numero}`, "_blank") },
+    { label: "Nossos Eventos", action: () => window.open(`https://instagram.com/${insta.usuario}`, "_blank") },
+
   ];
 
   return (
@@ -141,7 +142,7 @@ export function LinktreePage() {
           animation: "fadeUp 0.6s ease-out 1s both",
         }}>
           <button
-            onClick={() => window.open("https://instagram.com/cl_buffet12", "_blank")}
+            onClick={() => window.open(`https://instagram.com/${insta.usuario}`, "_blank")}
             style={{
               background: "none", border: "none", cursor: "pointer",
               fontFamily: "'Cormorant Garamond', serif",
@@ -156,7 +157,7 @@ export function LinktreePage() {
             Instagram
           </button>
           <button
-            onClick={() => window.open("https://wa.me/5500000000000", "_blank")}
+            onClick={() => window.open(`https://wa.me/${whats.numero}`, "_blank")}
             style={{
               background: "none", border: "none", cursor: "pointer",
               fontFamily: "'Cormorant Garamond', serif",
