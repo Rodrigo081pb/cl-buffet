@@ -26,13 +26,13 @@ export function CardapioPage() {
     }}>
       {/* Header */}
       <div style={{
-        padding: "24px 24px 0",
+        padding: window.innerWidth <= 480 ? "16px 16px 0" : "24px 24px 0",
         position: "sticky", top: 0, zIndex: 10,
         background: "rgba(47,13,13,0.92)",
         backdropFilter: "blur(12px)",
         borderBottom: `1px solid rgba(201,169,110,0.15)`,
       }}>
-        <div style={{ maxWidth: 520, margin: "0 auto" }}>
+        <div style={{ maxWidth: 520, margin: "0 auto", width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", marginBottom: 16, position: "relative" }}>
             <button
               onClick={() => navigate("/")}
@@ -51,7 +51,9 @@ export function CardapioPage() {
             <h1 style={{
               position: "absolute", left: "50%", transform: "translateX(-50%)",
               fontFamily: "'Playfair Display', serif",
-              color: colors.cream, fontSize: 20, fontWeight: 500,
+              color: colors.cream, 
+              fontSize: window.innerWidth <= 480 ? 18 : 20, 
+              fontWeight: 500,
               letterSpacing: "0.14em",
             }}>
               Cardápio
@@ -94,7 +96,8 @@ export function CardapioPage() {
 
       {/* Items */}
       <div style={{
-        flex: 1, padding: "8px 24px 100px",
+        flex: 1, 
+        padding: window.innerWidth <= 480 ? "8px 16px 120px" : "8px 24px 120px",
         maxWidth: 520, margin: "0 auto", width: "100%",
       }}>
         {menuData[activeTab].map((item, i) => (
@@ -107,25 +110,28 @@ export function CardapioPage() {
       {/* Floating CTA */}
       <div style={{
         position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 20,
-        padding: "16px 24px 24px",
+        padding: window.innerWidth <= 480 ? "12px 16px 20px" : "16px 24px 24px",
         background: "linear-gradient(to top, rgba(30,5,5,0.98) 0%, transparent 100%)",
+        backdropFilter: "blur(8px)",
       }}>
-        <div style={{ maxWidth: 520, margin: "0 auto" }}>
+        <div style={{ maxWidth: 520, margin: "0 auto", width: "100%" }}>
           <RippleButton
             onClick={() => window.open(`https://wa.me/${whats.numero.replace(/\D/g, '')}`, "_blank")}
             style={{
-              width: "100%", padding: "16px",
+              width: "100%", 
+              padding: window.innerWidth <= 480 ? "14px" : "16px",
               background: `linear-gradient(135deg, ${colors.bordeaux} 0%, ${colors.bordeauxDeep} 100%)`,
               border: `1px solid ${colors.gold}`,
               borderRadius: 3,
               fontFamily: "'Cormorant Garamond', serif",
               color: colors.gold,
-              fontSize: 16, fontWeight: 400,
+              fontSize: window.innerWidth <= 480 ? 14 : 16, 
+              fontWeight: 400,
               letterSpacing: "0.12em",
               boxShadow: `0 4px 24px rgba(0,0,0,0.5)`,
             }}
           >
-            Solicitar Orçamento Personalizado
+            {window.innerWidth <= 380 ? "Solicitar Orçamento" : "Solicitar Orçamento Personalizado"}
           </RippleButton>
         </div>
       </div>

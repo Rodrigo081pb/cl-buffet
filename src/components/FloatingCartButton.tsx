@@ -19,6 +19,7 @@ export function FloatingCartButton() {
   const navigate = useNavigate();
   const [itemCount, setItemCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
     const cart = Cart.getInstance();
@@ -41,9 +42,17 @@ export function FloatingCartButton() {
     setItemCount(total);
     setIsVisible(total > 0);
 
-    // Cleanup: remove observer quando componente desmonta
+    // Handler para resize da tela
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup: remove observer e listener quando componente desmonta
     return () => {
       cart.removeObserver(observer);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -54,10 +63,11 @@ export function FloatingCartButton() {
       onClick={() => navigate("/carrinho")}
       style={{
         position: "fixed",
-        bottom: 24,
-        right: 24,
-        width: 64,
-        height: 64,
+        // Ajusta posição para não sobrepor o CTA na página de cardápio
+        bottom: isMobile ? "100px" : "24px",
+        right: isMobile ? "16px" : "24px",
+        width: isMobile ? "56px" : "64px",
+        height: isMobile ? "56px" : "64px",
         borderRadius: "50%",
         background: `linear-gradient(135deg, ${colors.gold} 0%, #A07840 100%)`,
         border: `2px solid ${colors.goldMuted}`,
@@ -66,7 +76,7 @@ export function FloatingCartButton() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        zIndex: 1000,
+        zIndex: 999,
         transition: "all 0.3s ease",
         animation: "fadeUp 0.4s ease",
       }}
@@ -80,7 +90,7 @@ export function FloatingCartButton() {
       }}
     >
       {/* Ícone do carrinho */}
-      <span style={{ fontSize: 28, color: colors.bordeauxDeep }}>🛒</span>
+      <span style={{ fontSize: isMobile ? 24 : 28, color: colors.bordeauxDeep }}>🛒</span>
       
       {/* Badge com contador */}
       {itemCount > 0 && (

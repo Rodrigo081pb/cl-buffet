@@ -18,6 +18,8 @@ export function Modal({ item, onClose }: ModalProps) {
     cart.addItem(item);
     onClose(); // Fecha o modal após adicionar
   };
+
+  const isMobile = window.innerWidth <= 480;
   
   return (
     <div
@@ -38,7 +40,7 @@ export function Modal({ item, onClose }: ModalProps) {
           border: `1px solid rgba(201,169,110,0.3)`,
           borderBottom: "none",
           borderRadius: "16px 16px 0 0",
-          padding: "36px 32px 48px",
+          padding: isMobile ? "28px 20px 40px" : "36px 32px 48px",
           animation: "modalIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
         }}
       >
@@ -47,7 +49,9 @@ export function Modal({ item, onClose }: ModalProps) {
 
         <h2 style={{
           fontFamily: "'Playfair Display', serif",
-          color: colors.cream, fontSize: 24, fontWeight: 500,
+          color: colors.cream, 
+          fontSize: isMobile ? 20 : 24, 
+          fontWeight: 500,
           letterSpacing: "0.06em", marginBottom: 10, textAlign: "center",
         }}>
           {item.nome}
@@ -55,7 +59,9 @@ export function Modal({ item, onClose }: ModalProps) {
 
         <p style={{
           fontFamily: "'Cormorant Garamond', serif",
-          color: colors.creamMuted, fontSize: 16, fontStyle: "italic",
+          color: colors.creamMuted, 
+          fontSize: isMobile ? 15 : 16, 
+          fontStyle: "italic",
           lineHeight: 1.65, textAlign: "center", marginBottom: 20,
         }}>
           {item.desc}
@@ -85,12 +91,14 @@ export function Modal({ item, onClose }: ModalProps) {
         <RippleButton
           onClick={handleAddToCart}
           style={{
-            width: "100%", padding: "15px",
+            width: "100%", 
+            padding: isMobile ? "13px" : "15px",
             background: `linear-gradient(135deg, ${colors.gold} 0%, #A07840 100%)`,
             border: "none", borderRadius: 3,
             fontFamily: "'Cormorant Garamond', serif",
             color: colors.bordeauxDeep,
-            fontSize: 16, fontWeight: 500,
+            fontSize: isMobile ? 15 : 16, 
+            fontWeight: 500,
             letterSpacing: "0.12em",
             marginBottom: 8,
           }}
@@ -101,13 +109,15 @@ export function Modal({ item, onClose }: ModalProps) {
         <RippleButton
           onClick={() => window.open(`https://wa.me/${whats.numero.replace(/\D/g, '')}`, "_blank")}
           style={{
-            width: "100%", padding: "15px",
+            width: "100%", 
+            padding: isMobile ? "13px" : "15px",
             background: "none",
             border: `1px solid ${colors.goldMuted}`,
             borderRadius: 3,
             fontFamily: "'Cormorant Garamond', serif",
             color: colors.gold,
-            fontSize: 16, fontWeight: 500,
+            fontSize: isMobile ? 15 : 16, 
+            fontWeight: 500,
             letterSpacing: "0.12em",
           }}
         >

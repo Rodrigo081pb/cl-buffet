@@ -77,15 +77,18 @@ export function CarrinhoPage() {
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
 
+  const isMobile = window.innerWidth <= 768;
+  const isSmallMobile = window.innerWidth <= 480;
+
   return (
     <div style={{
       minHeight: "100vh",
       background: "#2A0A0A",
-      paddingBottom: 100,
+      paddingBottom: isSmallMobile ? 80 : 100,
     }}>
       {/* Header */}
       <div style={{
-        padding: "32px 24px",
+        padding: isSmallMobile ? "24px 16px" : "32px 24px",
         borderBottom: `1px solid rgba(201,169,110,0.2)`,
         background: `linear-gradient(180deg, #2A0A0A 0%, #1F0707 100%)`,
       }}>
@@ -116,7 +119,7 @@ export function CarrinhoPage() {
           <h1 style={{
             fontFamily: "'Playfair Display', serif",
             color: colors.cream,
-            fontSize: 32,
+            fontSize: isSmallMobile ? 24 : isMobile ? 28 : 32,
             fontWeight: 500,
             letterSpacing: "0.08em",
             textAlign: "center",
@@ -143,7 +146,8 @@ export function CarrinhoPage() {
       <div style={{
         maxWidth: 600,
         margin: "0 auto",
-        padding: "24px",
+        padding: isSmallMobile ? "16px" : "24px",
+        width: "100%",
       }}>
         {items.length === 0 ? (
           // Carrinho vazio
@@ -188,7 +192,7 @@ export function CarrinhoPage() {
                   background: `linear-gradient(160deg, rgba(74,21,21,0.4) 0%, rgba(47,13,13,0.4) 100%)`,
                   border: `1px solid rgba(201,169,110,0.2)`,
                   borderRadius: 8,
-                  padding: 20,
+                  padding: isSmallMobile ? 16 : 20,
                   marginBottom: 16,
                   animation: "fadeUp 0.3s ease",
                 }}
@@ -203,7 +207,7 @@ export function CarrinhoPage() {
                     <h3 style={{
                       fontFamily: "'Playfair Display', serif",
                       color: colors.cream,
-                      fontSize: 18,
+                      fontSize: isSmallMobile ? 16 : isMobile ? 17 : 18,
                       fontWeight: 500,
                       marginBottom: 6,
                     }}>
@@ -212,7 +216,7 @@ export function CarrinhoPage() {
                     <p style={{
                       fontFamily: "'Raleway', sans-serif",
                       color: colors.creamMuted,
-                      fontSize: 13,
+                      fontSize: isSmallMobile ? 12 : 13,
                       lineHeight: 1.6,
                     }}>
                       {item.desc}
@@ -245,12 +249,13 @@ export function CarrinhoPage() {
                 <div style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: 16,
+                  gap: isSmallMobile ? 12 : 16,
+                  flexWrap: isSmallMobile ? "wrap" : "nowrap",
                 }}>
                   <span style={{
                     fontFamily: "'Raleway', sans-serif",
                     color: colors.gold,
-                    fontSize: 12,
+                    fontSize: isSmallMobile ? 11 : 12,
                     letterSpacing: "0.1em",
                     textTransform: "uppercase",
                   }}>
@@ -260,10 +265,10 @@ export function CarrinhoPage() {
                   <div style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: 12,
+                    gap: isSmallMobile ? 8 : 12,
                     background: "rgba(0,0,0,0.2)",
                     borderRadius: 4,
-                    padding: "6px 12px",
+                    padding: isSmallMobile ? "4px 8px" : "6px 12px",
                   }}>
                     <button
                       onClick={() => handleDecrement(item.id)}
@@ -273,8 +278,8 @@ export function CarrinhoPage() {
                         color: colors.gold,
                         fontSize: 18,
                         cursor: "pointer",
-                        width: 24,
-                        height: 24,
+                        width: isSmallMobile ? 20 : 24,
+                        height: isSmallMobile ? 20 : 24,
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -286,9 +291,9 @@ export function CarrinhoPage() {
                     <span style={{
                       fontFamily: "'Raleway', sans-serif",
                       color: colors.cream,
-                      fontSize: 16,
+                      fontSize: isSmallMobile ? 15 : 16,
                       fontWeight: 500,
-                      minWidth: 30,
+                      minWidth: isSmallMobile ? 25 : 30,
                       textAlign: "center",
                     }}>
                       {item.quantity}
@@ -302,8 +307,8 @@ export function CarrinhoPage() {
                         color: colors.gold,
                         fontSize: 18,
                         cursor: "pointer",
-                        width: 24,
-                        height: 24,
+                        width: isSmallMobile ? 20 : 24,
+                        height: isSmallMobile ? 20 : 24,
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -318,7 +323,7 @@ export function CarrinhoPage() {
 
             {/* Botões de ação */}
             <div style={{
-              marginTop: 32,
+              marginTop: isSmallMobile ? 24 : 32,
               display: "flex",
               flexDirection: "column",
               gap: 12,
@@ -327,18 +332,18 @@ export function CarrinhoPage() {
                 onClick={handleFinalizarPedido}
                 style={{
                   width: "100%",
-                  padding: "16px",
+                  padding: isSmallMobile ? "14px" : "16px",
                   background: `linear-gradient(135deg, ${colors.gold} 0%, #A07840 100%)`,
                   border: "none",
                   borderRadius: 3,
                   fontFamily: "'Cormorant Garamond', serif",
                   color: colors.bordeauxDeep,
-                  fontSize: 18,
+                  fontSize: isSmallMobile ? 15 : isMobile ? 16 : 18,
                   fontWeight: 500,
                   letterSpacing: "0.12em",
                 }}
               >
-                Finalizar Pedido via WhatsApp
+                {isSmallMobile ? "Finalizar no WhatsApp" : "Finalizar Pedido via WhatsApp"}
               </RippleButton>
 
               <button

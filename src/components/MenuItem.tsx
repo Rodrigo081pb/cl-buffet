@@ -14,16 +14,19 @@ export function MenuItem({ item, onClick }: MenuItemProps) {
     cart.addItem(item);
   };
 
+  const isMobile = window.innerWidth <= 480;
+
   return (
     <div
       onClick={() => onClick(item)}
       style={{
-        padding: "20px 0", cursor: "pointer",
+        padding: isMobile ? "16px 0" : "20px 0", 
+        cursor: "pointer",
         borderBottom: `1px solid rgba(201,169,110,0.18)`,
         transition: "all 0.2s ease",
         display: "flex",
         alignItems: "center",
-        gap: 18,
+        gap: isMobile ? 12 : 18,
       }}
       onMouseEnter={e => {
         e.currentTarget.style.paddingLeft = "8px";
@@ -36,7 +39,8 @@ export function MenuItem({ item, onClick }: MenuItemProps) {
     >
       {/* Imagem elegante do prato */}
       <div style={{
-        width: 54, height: 54,
+        width: isMobile ? 48 : 54, 
+        height: isMobile ? 48 : 54,
         borderRadius: "50%",
         background: `linear-gradient(135deg, ${colors.goldMuted} 0%, ${colors.bordeauxDark} 100%)`,
         border: `1.5px solid ${colors.goldMuted}`,
@@ -60,7 +64,9 @@ export function MenuItem({ item, onClick }: MenuItemProps) {
       <div style={{ flex: 1, minWidth: 0 }}>
         <h3 style={{
           fontFamily: "'Playfair Display', serif",
-          color: colors.cream, fontSize: 16, fontWeight: 400,
+          color: colors.cream, 
+          fontSize: isMobile ? 15 : 16, 
+          fontWeight: 400,
           letterSpacing: "0.04em", marginBottom: 6,
           textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden"
         }}>
@@ -68,7 +74,8 @@ export function MenuItem({ item, onClick }: MenuItemProps) {
         </h3>
         <p style={{
           fontFamily: "'Raleway', sans-serif",
-          color: "rgba(245,236,215,0.65)", fontSize: 13,
+          color: "rgba(245,236,215,0.65)", 
+          fontSize: isMobile ? 12 : 13,
           fontWeight: 300, lineHeight: 1.6, letterSpacing: "0.02em",
           textOverflow: "ellipsis", overflow: "hidden",
           display: "-webkit-box",
@@ -86,10 +93,10 @@ export function MenuItem({ item, onClick }: MenuItemProps) {
           background: `linear-gradient(135deg, ${colors.gold} 0%, #A07840 100%)`,
           border: "none",
           borderRadius: 4,
-          padding: "8px 16px",
+          padding: isMobile ? "6px 12px" : "8px 16px",
           color: colors.bordeauxDeep,
           fontFamily: "'Raleway', sans-serif",
-          fontSize: 12,
+          fontSize: isMobile ? 11 : 12,
           fontWeight: 600,
           letterSpacing: "0.05em",
           cursor: "pointer",
