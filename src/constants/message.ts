@@ -4,7 +4,7 @@
  */
 
 export const message_cardapio = {
-  mensagem: "Olá! Tudo bem? Gostaria de solicitar um orçamento personalizado para os pratos do cardápio."
+  mensagem: "Olá, gostaria de fazer um orçamento personalizado pro meu cardapio"
 };
 
 export const message_carrinho = {

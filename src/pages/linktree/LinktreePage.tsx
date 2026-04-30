@@ -3,13 +3,14 @@ import { colors } from "../../constants/colors";
 import { Ornament } from "../../components/Ornament";
 import { RippleButton } from "../../components/RippleButton";
 import { insta, whats } from "../../constants/info";
+import { message_cardapio } from "../../constants/message";
 
 export function LinktreePage() {
   const navigate = useNavigate();
 
   const links = [
     { label: "Cardápio Completo", action: () => navigate("/cardapio") },
-    { label: "Solicitar Orçamento", action: () => window.open(`https://wa.me/${whats.numero}`, "_blank") },
+    { label: "Solicitar Orçamento", action: () => window.open(`https://wa.me/${whats.numero}?text=${encodeURIComponent(message_cardapio.mensagem)}`, "_blank") },
     { label: "Nossos Eventos", action: () => window.open(`https://instagram.com/${insta.usuario}`, "_blank") },
 
   ];

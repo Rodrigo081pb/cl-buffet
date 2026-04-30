@@ -9,6 +9,7 @@ import { MenuItem } from "../../components/MenuItem";
 import { Modal } from "../../components/Modal";
 import { FloatingCartButton } from "../../components/FloatingCartButton";
 import { whats } from "../../constants/info";
+import { message_cardapio } from "../../constants/message";
 
 export function CardapioPage() {
   const navigate = useNavigate();
@@ -116,7 +117,7 @@ export function CardapioPage() {
       }}>
         <div style={{ maxWidth: 520, margin: "0 auto", width: "100%" }}>
           <RippleButton
-            onClick={() => window.open(`https://wa.me/${whats.numero.replace(/\D/g, '')}`, "_blank")}
+            onClick={() => window.open(`https://wa.me/${whats.numero.replace(/\D/g, '')}?text=${encodeURIComponent(message_cardapio.mensagem)}`, "_blank")}
             style={{
               width: "100%", 
               padding: window.innerWidth <= 480 ? "14px" : "16px",
