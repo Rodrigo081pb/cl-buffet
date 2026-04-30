@@ -15,19 +15,55 @@ export class OrderManager {
   private static readonly GREETING = "Olá! Gostaria de fazer um pedido para meu evento:";
   private static readonly FOOTER = "\nAguardo retorno para confirmação e valores. Obrigado!";
 
+  // Emojis para cada categoria
+  private static readonly CATEGORY_EMOJIS: Record<string, string> = {
+    "Entradas": "📋",
+    "Pratos Principais": "🍖",
+    "Coffee Break": "☕",
+    "Acompanhamentos": "🥗",
+    "Sobremesas": "🍰",
+    "Bebidas": "🥤",
+  };
+
   /**
-   * Formata a lista de itens para a mensagem
+   * Agrupa itens por categoria
+   */
+  private static groupItemsByCategory(items: CartItem[]): Record<string, CartItem[]> {
+    const grouped: Record<string, CartItem[]> = {};
+    
+    items.forEach(item => {
+      const categoria = item.categoria || "Outros";
+      if (!grouped[categoria]) {
+        grouped[categoria] = [];
+      }
+      grouped[categoria].push(item);
+    });
+    
+    return grouped;
+  }
+
+  /**
+   * Formata a lista de itens para a mensagem (organizada por categorias)
    */
   private static formatItems(items: CartItem[]): string {
     if (items.length === 0) {
       return "";
     }
 
-    const itemsList = items
-      .map(item => item.toMessageFormat())
-      .join("\n");
+    const grouped = this.groupItemsByCategory(items);
+    const categoryOrder = ["Entradas", "Pratos Principais", "Coffee Break", "Acompanhamentos", "Sobremesas", "Bebidas"];
+    
+    const sections = categoryOrder
+      .filter(category => grouped[category] && grouped[category].length > 0)
+      .map(category => {
+        const emoji = this.CATEGORY_EMOJIS[category] || "•";
+        const categoryItems = grouped[category]
+          .map(item => item.toMessageFormat())
+          .join("\n");
+        return `\n*${emoji} ${category.toUpperCase()}*\n${categoryItems}`;
+      });
 
-    return `\n\n*Itens selecionados:*\n${itemsList}`;
+    return sections.length > 0 ? "\n" + sections.join("\n") : "";
   }
 
   /**

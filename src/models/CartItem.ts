@@ -10,10 +10,12 @@ export class CartItem {
   private _menuItem: MenuItem;
   private _quantity: number;
   private _id: string;
+  private _categoria: string;
 
-  constructor(menuItem: MenuItem, quantity: number = 1) {
+  constructor(menuItem: MenuItem, quantity: number = 1, categoria: string = "") {
     this._menuItem = menuItem;
     this._quantity = quantity;
+    this._categoria = categoria;
     this._id = this.generateId(menuItem);
   }
 
@@ -43,6 +45,10 @@ export class CartItem {
 
   get desc(): string {
     return this._menuItem.desc;
+  }
+
+  get categoria(): string {
+    return this._categoria;
   }
 
   /**

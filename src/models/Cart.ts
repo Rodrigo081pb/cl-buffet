@@ -1,4 +1,5 @@
 import type { MenuItem } from "../data/menuData";
+import { menuData } from "../data/menuData";
 import { CartItem } from "./CartItem";
 
 /**
@@ -7,6 +8,18 @@ import { CartItem } from "./CartItem";
  */
 export interface CartObserver {
   onCartChange(items: CartItem[]): void;
+}
+
+/**
+ * Descobre a categoria de um item baseado no menuData
+ */
+function findItemCategory(menuItem: MenuItem): string {
+  for (const [category, items] of Object.entries(menuData)) {
+    if (items.some(item => item.nome === menuItem.nome)) {
+      return category;
+    }
+  }
+  return "Outros";
 }
 
 /**
@@ -71,7 +84,8 @@ export class Cart {
    * Se o item já existe, incrementa a quantidade
    */
   addItem(menuItem: MenuItem): void {
-    const tempItem = new CartItem(menuItem);
+    const categoria = findItemCategory(menuItem);
+    const tempItem = new CartItem(menuItem, 1, categoria);
     const itemId = tempItem.id;
 
     if (this.items.has(itemId)) {
@@ -153,7 +167,8 @@ export class Cart {
    * Verifica se um item está no carrinho
    */
   hasItem(menuItem: MenuItem): boolean {
-    const tempItem = new CartItem(menuItem);
+    const categoria = findItemCategory(menuItem);
+    const tempItem = new CartItem(menuItem, 1, categoria);
     return this.items.has(tempItem.id);
   }
 
@@ -165,6 +180,7 @@ export class Cart {
       const data = Array.from(this.items.values()).map(item => ({
         menuItem: item.menuItem,
         quantity: item.quantity,
+        categoria: item.categoria,
       }));
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data));
     } catch (error) {
@@ -180,8 +196,9 @@ export class Cart {
       const data = localStorage.getItem(this.STORAGE_KEY);
       if (data) {
         const items = JSON.parse(data);
-        items.forEach((item: { menuItem: MenuItem; quantity: number }) => {
-          const cartItem = new CartItem(item.menuItem, item.quantity);
+        items.forEach((item: { menuItem: MenuItem; quantity: number; categoria?: string }) => {
+          const categoria = item.categoria || findItemCategory(item.menuItem);
+          const cartItem = new CartItem(item.menuItem, item.quantity, categoria);
           this.items.set(cartItem.id, cartItem);
         });
       }
